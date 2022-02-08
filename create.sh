@@ -89,7 +89,7 @@ cp ../runLib/*.jpg "$source/pic/"
 cp ../runLib/*.jar "$source/main.jar"
 
 echo "开始打包..."
-/Library/Java/JavaVirtualMachines/jdk-17.0.2.jdk/Contents/Home/bin/jpackage -i "$source" -n "$dmgname" --type "dmg" --icon "Icon.icns" --main-jar main.jar
+jpackage -i "$source" -n "$dmgname" --type "dmg" --icon "Icon.icns" --main-jar main.jar
 echo "打包完成"
 
 cp ./*.dmg ../
