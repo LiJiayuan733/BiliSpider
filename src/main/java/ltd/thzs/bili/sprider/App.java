@@ -17,7 +17,7 @@ public class App
         Step.loadData(args);
         Step.CheckDir();
         Step.LoadLib();
-        instance.helloWorld();
+        Step.AddFWPD(4);
         if(ConfigData.createGUI) {
             Step.createGUI();
         }

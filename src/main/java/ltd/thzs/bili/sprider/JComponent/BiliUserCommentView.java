@@ -4,21 +4,19 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.ImageIcon;
-import javax.swing.JComponent;
 
 import ltd.thzs.BiliSprider.Sprider.BiliCommentData;
 import ltd.thzs.bili.sprider.JComponent.Button.ListStyleMenuButton.state;
+import ltd.thzs.bili.sprider.JFrameWebPicDownloader;
+import ltd.thzs.bili.sprider.PicComponent;
 
-public class BiliUserCommentView extends JComponent {
+public class BiliUserCommentView extends PicComponent {
 	public static CommentReJFrame nowClickedComment=null;
 	public state St=state.inOut;
 	
@@ -28,15 +26,14 @@ public class BiliUserCommentView extends JComponent {
 	public static Color DisLikeColor=new Color(61,43,31,80);
 	public static Font NAME_FONT=new Font("微软雅黑",Font.PLAIN,14);
 	public static Font MESSAGE_FONT=new Font("微软雅黑",Font.PLAIN,8);
+	@Serial
 	private static final long serialVersionUID = -5432199697780128875L;
-	public String HeadPicUrl=null;
-	public Image ip=null;
-	public String message=null;
-	public String uname=null;
-	public String rpid=null;
-	public String mid=null;
-	public BiliCommentData bcd=null;
-	public String oid=null;
+	public String message;
+	public String uname;
+	public String rpid;
+	public String mid;
+	public BiliCommentData bcd;
+	public String oid;
 	public int commentLevel=1;
 	public BiliUserCommentView(String oid,String HeadPicUrl,String uname,String message,String rpid,String mid,BiliCommentData bcd) {
 		this.HeadPicUrl=HeadPicUrl;
@@ -51,7 +48,7 @@ public class BiliUserCommentView extends JComponent {
 	@Override
 	public void paint(Graphics g) {
 		if(ip==null) {
-			new Thread(new Runnable() {			
+			/*new Thread(new Runnable() {
 				@Override
 				public void run() {
 					try {
@@ -61,7 +58,8 @@ public class BiliUserCommentView extends JComponent {
 					}
 					repaint();
 				}
-			}).start();
+			}).start();*/
+			JFrameWebPicDownloader.add(this);
 			return;
 		}
 		int size=getHeight();
@@ -141,20 +139,14 @@ public class BiliUserCommentView extends JComponent {
 					BiliUserCommentView.nowClickedComment.updateComment((BiliUserCommentView)e.getComponent());
 					BiliUserCommentView.nowClickedComment.repaint();
 				}
-			};
+			}
 		});
 	}
 	public void paintInfo(Graphics g) {
 		int width_temp;
-		boolean countmore=false;
-		if(bcd.count>999) {
-			countmore=true;
-		}
-		boolean likemore=false;
-		if(bcd.like>=9999) {
-			likemore=true;
-		}
-		
+		boolean countmore= bcd.count > 999;
+		boolean likemore= bcd.like >= 9999;
+
 		g.setFont(NAME_FONT);
 		FontMetrics fm=g.getFontMetrics();
 		width_temp=fm.stringWidth("009999");

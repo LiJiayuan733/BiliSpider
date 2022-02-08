@@ -88,4 +88,12 @@ public class Step {
 			}
 		}
 	}
+	public static void AddFWPD(int size){
+		while(size!=-1){
+			Thread t=new Thread(new JFrameWebPicDownloader());
+			t.setDaemon(true);
+			t.start();
+			size--;
+		}
+	}
 }
