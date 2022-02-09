@@ -47,6 +47,7 @@ public class TransformJFrame extends JFrame{
 	JTextField inp1;
 	JTextField inp2;
 	MenuButton commit;
+	MenuButton commit2;
 	public void addJComp() {
 		inp1=new JTextField("输入BVID");
 		inp1.addFocusListener(new FocusAdapter() {
@@ -87,7 +88,15 @@ public class TransformJFrame extends JFrame{
 				}
 			}
 		});
-		
+
+		commit2=new MenuButton("视频测试");
+		commit2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				new VideoShowJFrame(VideoShowJFrame.defaultFile);
+			}
+		});
+
 		PercentLocate.SetSize(800, 80, this, inp1);
 		PercentLocate.SetPTopCenter(this, inp1, getHeight()/15);
 		getContentPane().add(inp1);
@@ -95,10 +104,14 @@ public class TransformJFrame extends JFrame{
 		PercentLocate.SetSize(800, 80, this, inp2);
 		PercentLocate.SetPBottomCenterCC(inp1, inp2, getHeight()/30);
 		getContentPane().add(inp2);
-		
+
 		PercentLocate.SetSize(500, 60, this, commit);
 		PercentLocate.SetPBottomCenter(this, commit, getHeight()/15);
 		getContentPane().add(commit);
+
+		commit2.setSize(commit.getSize());
+		PercentLocate.SetPTopCenterCC(commit,commit2,getHeight()/15);
+		getContentPane().add(commit2);
 	}
 	public void addTopBorder() {
 		FrameTopBorder tb = new FrameTopBorder(this, getWidth() / 20);

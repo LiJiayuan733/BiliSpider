@@ -14,7 +14,6 @@ import java.util.List;
 import ltd.thzs.BiliSprider.Sprider.BiliCommentData;
 import ltd.thzs.bili.sprider.JComponent.Button.ListStyleMenuButton.state;
 import ltd.thzs.bili.sprider.JFrameWebPicDownloader;
-import ltd.thzs.bili.sprider.PicComponent;
 
 public class BiliUserCommentView extends PicComponent {
 	public static CommentReJFrame nowClickedComment=null;
@@ -48,17 +47,6 @@ public class BiliUserCommentView extends PicComponent {
 	@Override
 	public void paint(Graphics g) {
 		if(ip==null) {
-			/*new Thread(new Runnable() {
-				@Override
-				public void run() {
-					try {
-						ip=new ImageIcon(new URL(HeadPicUrl)).getImage().getScaledInstance(getHeight(), getHeight(), Image.SCALE_SMOOTH);
-					} catch (MalformedURLException e) {
-						e.printStackTrace();
-					}
-					repaint();
-				}
-			}).start();*/
 			JFrameWebPicDownloader.add(this);
 			return;
 		}
@@ -72,7 +60,7 @@ public class BiliUserCommentView extends PicComponent {
 		
 		g.setFont(MESSAGE_FONT);
 		fm=g.getFontMetrics();
-		int linesize=getWidth()-(size+getWidth()/25)-getWidth()/10;
+		int line_size=getWidth()-(size+getWidth()/25)-getWidth()/10;
 		int sumSize=0,ii=0;
 		ArrayList<Integer> ls=new ArrayList<>();
 		ls.add(0);
@@ -82,7 +70,7 @@ public class BiliUserCommentView extends PicComponent {
 			}
 			sumSize+=i;
 			ii++;
-			if(sumSize>linesize) {
+			if(sumSize>line_size) {
 				ls.add(ii);
 				sumSize=i;
 			}
@@ -99,8 +87,9 @@ public class BiliUserCommentView extends PicComponent {
 		}
 		paintInfo(g);
 	}
+	ArrayList<Integer> ai;
 	public List<Integer> getWidthsString(String line,FontMetrics fm){
-		ArrayList<Integer> ai=new ArrayList<>();
+		ai=new ArrayList<>();
 		char[] list=new char[line.length()];
 		line.getChars(0, line.length(), list, 0);
 		for(char i:list) {
@@ -144,8 +133,8 @@ public class BiliUserCommentView extends PicComponent {
 	}
 	public void paintInfo(Graphics g) {
 		int width_temp;
-		boolean countmore= bcd.count > 999;
-		boolean likemore= bcd.like >= 9999;
+		boolean count_more= bcd.count > 999;
+		boolean like_more= bcd.like >= 9999;
 
 		g.setFont(NAME_FONT);
 		FontMetrics fm=g.getFontMetrics();
@@ -160,13 +149,13 @@ public class BiliUserCommentView extends PicComponent {
 		}
 		
 		g.setColor(LikeFont);
-		if(likemore) {
+		if(like_more) {
 			g.drawString("9999", getWidth()-width_temp,fm.getAscent());
 		}else {
 			g.drawString(""+bcd.like, getWidth()-width_temp,fm.getAscent());
 		}
 		g.setColor(RCountFont);
-		if(countmore){
+		if(count_more){
 			g.drawString("999", getWidth()-width_temp-width_temp2,fm.getAscent());
 		}else {
 			g.drawString(""+bcd.count, getWidth()-width_temp-width_temp2,fm.getAscent());

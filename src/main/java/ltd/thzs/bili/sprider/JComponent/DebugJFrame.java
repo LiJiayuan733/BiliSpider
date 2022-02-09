@@ -2,6 +2,7 @@ package ltd.thzs.bili.sprider.JComponent;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.Serial;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -14,6 +15,7 @@ import ltd.thzs.bili.sprider.utils.FrameButtonTools;
 
 public class DebugJFrame extends JFrame{
 
+	@Serial
 	private static final long serialVersionUID = 3076380599231108471L;
 	public static DebugJFrame instance;
 	public int count=0;
