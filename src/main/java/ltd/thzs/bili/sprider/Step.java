@@ -40,7 +40,6 @@ public class Step {
 	public static void createGUI() {
 		FlatDarkFlatIJTheme.setup();
 		UIManager.put("FrameTopBorderColor", new Color(102,204,255));
-		
 		new MenuJFrame();
 	}
 	//备用

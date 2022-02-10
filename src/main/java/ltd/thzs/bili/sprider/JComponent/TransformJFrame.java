@@ -94,6 +94,7 @@ public class TransformJFrame extends JFrame{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				new VideoShowJFrame(VideoShowJFrame.defaultFile);
+				//App.instance.play(UtilsInstance.buildStrPointer(VideoShowJFrame.defaultFile));
 			}
 		});
 

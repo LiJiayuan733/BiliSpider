@@ -24,14 +24,10 @@ fi
 
 #C Compile
 echo "编译C动态支持库"
-# shellcheck disable=SC2034
-CFile="test"
-# shellcheck disable=SC2066
-for file in "$CFile"
-do
-  gcc -dynamiclib "./CLib/$file.c" -o "./CLib/$file.dylib"
-  cp ./Clib/*.dylib ./runLib/
-done
+gcc -dynamiclib "./CLib/test.c" -o "./CLib/test.dylib"
+clang++ -arch arm64 "./CLib/test4.cpp" -o "./CLib/test4" -I/usr/local/include/opencv4  -lopencv_highgui -lopencv_videoio -lopencv_core --std=c++11
+clang++ -arch arm64 "./CLib/SharedMemory.cpp" -fpic -shared -o "./CLib/SharedMemory.dylib" -std=c++11
+cp ./Clib/*.dylib ./runLib/
 
 #Java Compile
 echo "编译JAVA源码"
@@ -71,7 +67,7 @@ fi
 
 #建立结构
 if [ ! -d "$source" ];
-then 
+then
     mkdir "$source"
     mkdir "$source/lib/"
     mkdir "$source/pic/"
@@ -82,6 +78,7 @@ echo "移动支持库"
 if [ "$BuildVer" = "Test" ];
 then
   cp ../runLib/*.properties "$source/lib/"
+  cp ../Clib/test4 "$source/"
 fi
 cp ../runLib/*.dylib "$source/lib/"
 cp ../runLib/*.png "$source/pic/"
